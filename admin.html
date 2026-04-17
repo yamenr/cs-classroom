@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم | الفصل الرقمي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Admin-specific styles */
+    .login-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 999;
+    }
+    .login-box {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      width: 100%; max-width: 400px;
+      text-align: center;
+    }
+    .login-box h2 { margin-bottom: 0.5rem; }
+    .login-box p { color: var(--text-light); margin-bottom: 1.5rem; }
+    .login-box input {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 2px solid var(--border); border-radius: var(--radius-sm);
+      font-family: inherit; font-size: 1rem;
+      margin-bottom: 1rem; direction: ltr; text-align: center;
+    }
+    .login-box input:focus { outline: none; border-color: var(--primary); }
+    .login-error { color: var(--error); font-size: 0.9rem; display: none; margin-bottom: 0.5rem; }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+    .admin-sidebar {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem 0;
+    }
+    .admin-sidebar h3 {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 1.5rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .admin-sidebar h3:first-child { margin-top: 0; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 1.5rem;
+      color: #cbd5e1; cursor: pointer;
+      transition: all var(--transition);
+      border: none; background: none;
+      width: 100%; text-align: right;
+      font-family: inherit; font-size: 0.95rem;
+    }
+    .sidebar-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+    .sidebar-link.active { background: rgba(255,255,255,0.1); color: #fff; border-right: 3px solid var(--primary); }
+
+    .admin-main {
+      padding: 2rem;
+      background: var(--bg);
+      overflow-y: auto;
+    }
+    .admin-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .admin-header h1 { font-size: 1.5rem; }
+
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .form-group .hint {
+      font-size: 0.8rem;
+      color: var(--text-lighter);
+      margin-top: 0.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* Item List in Admin */
+    .admin-item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .admin-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      transition: all var(--transition);
+    }
+    .admin-item:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .admin-item .item-info h4 { font-size: 1rem; margin-bottom: 0.15rem; }
+    .admin-item .item-info p { font-size: 0.85rem; color: var(--text-light); }
+    .admin-item .item-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn-sm {
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-edit { background: var(--primary-light); color: var(--primary); }
+    .btn-edit:hover { background: var(--primary); color: #fff; }
+    .btn-delete { background: var(--error-light); color: var(--error); }
+    .btn-delete:hover { background: var(--error); color: #fff; }
+    .btn-add {
+      background: var(--success);
+      color: #fff;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all var(--transition);
+    }
+    .btn-add:hover { background: #15803d; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200;
+      padding: 1rem;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal h2 { margin-bottom: 1.5rem; font-size: 1.25rem; }
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      justify-content: flex-start;
+    }
+    .btn-save { background: var(--primary); color: #fff; }
+    .btn-save:hover { background: var(--primary-dark); }
+    .btn-cancel { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .btn-cancel:hover { border-color: var(--text-light); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: #1e293b; color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+
+    /* Settings Section */
+    .settings-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .settings-card h3 { margin-bottom: 1rem; }
+
+    .danger-zone {
+      border-color: var(--error);
+    }
+    .danger-zone h3 { color: var(--error); }
+
+    .btn-danger {
+      background: var(--error);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-danger:hover { background: #b91c1c; }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Question builder */
+    .question-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: var(--bg);
+    }
+    .question-block h4 {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.75rem;
+    }
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .option-row input[type="text"] {
+      flex: 1;
+    }
+    .option-row input[type="radio"] {
+      width: auto;
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+      .admin-sidebar {
+        display: none;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Overlay -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box">
+      <div style="font-size:3rem; margin-bottom:1rem;">🔐</div>
+      <h2>لوحة التحكم</h2>
+      <p>أدخل كلمة المرور للدخول</p>
+      <div class="login-error" id="loginError">كلمة المرور غير صحيحة</div>
+      <input type="password" id="passwordInput" placeholder="كلمة المرور" onkeypress="if(event.key==='Enter')attemptLogin()">
+      <button class="btn btn-primary" style="width:100%" onclick="attemptLogin()">دخول</button>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <span class="icon">🎓</span>
+        <span>الفصل الرقمي</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="csharp.html">C#</a></li>
+        <li><a href="android.html">تطوير أندرويد</a></li>
+        <li><a href="automata.html">نظرية الأوتوماتا</a></li>
+        <li><a href="admin.html" class="active" style="color:var(--primary);">⚙ لوحة التحكم</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Admin Layout -->
+  <div class="admin-layout" id="adminContent" style="display:none;">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <h3>عام</h3>
+      <button class="sidebar-link active" onclick="showSection('dashboard', this)">📊 لوحة المعلومات</button>
+
+      <h3>C#</h3>
+      <button class="sidebar-link" onclick="showSection('csharp-lessons', this)">📚 الدروس</button>
+      <button class="sidebar-link" onclick="showSection('csharp-videos', this)">🎬 الفيديوهات</button>
+      <button class="sidebar-link" onclick="showSection('csharp-exercises', this)">💻 التمارين</button>
+      <button class="sidebar-link" onclick="showSection('csharp-exams', this)">📝 الامتحانات</button>
+
+      <h3>أندرويد</h3>
+      <button class="sidebar-link" onclick="showSection('android-lessons', this)">📚 الدروس</button>
+      <button class="sidebar-link" onclick="showSection('android-videos', this)">🎬 الفيديوهات</button>
+      <button class="sidebar-link" onclick="showSection('android-exercises', this)">💻 التمارين</button>
+      <button class="sidebar-link" onclick="showSection('android-exams', this)">📝 الامتحانات</button>
+
+      <h3>أوتوماتا</h3>
+      <button class="sidebar-link" onclick="showSection('automata-lessons', this)">📚 الدروس</button>
+      <button class="sidebar-link" onclick="showSection('automata-videos', this)">🎬 الفيديوهات</button>
+      <button class="sidebar-link" onclick="showSection('automata-exercises', this)">💻 التمارين</button>
+      <button class="sidebar-link" onclick="showSection('automata-exams', this)">📝 الامتحانات</button>
+
+      <h3>إعدادات</h3>
+      <button class="sidebar-link" onclick="showSection('settings', this)">⚙ الإعدادات</button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main" id="adminMain">
+      <!-- Dashboard -->
+      <div class="admin-section active" id="sec-dashboard">
+        <div class="admin-header">
+          <h1>لوحة المعلومات</h1>
+        </div>
+        <div class="subjects-grid" id="dashboardStats"></div>
+      </div>
+
+      <!-- Dynamic sections will be populated by JS -->
+      <div class="admin-section" id="sec-csharp-lessons"></div>
+      <div class="admin-section" id="sec-csharp-videos"></div>
+      <div class="admin-section" id="sec-csharp-exercises"></div>
+      <div class="admin-section" id="sec-csharp-exams"></div>
+      <div class="admin-section" id="sec-android-lessons"></div>
+      <div class="admin-section" id="sec-android-videos"></div>
+      <div class="admin-section" id="sec-android-exercises"></div>
+      <div class="admin-section" id="sec-android-exams"></div>
+      <div class="admin-section" id="sec-automata-lessons"></div>
+      <div class="admin-section" id="sec-automata-videos"></div>
+      <div class="admin-section" id="sec-automata-exercises"></div>
+      <div class="admin-section" id="sec-automata-exams"></div>
+      <div class="admin-section" id="sec-settings"></div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal" id="modalContent"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script>
+    let siteData = getSiteData();
+
+    // ─── Login ───
+    function attemptLogin() {
+      const pw = document.getElementById('passwordInput').value;
+      if (pw === siteData.adminPassword) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'grid';
+        renderDashboard();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    // ─── Toast ───
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ─── Modal ───
+    function openModal(html) {
+      document.getElementById('modalContent').innerHTML = html;
+      document.getElementById('modal').classList.add('show');
+    }
+    function closeModal() {
+      document.getElementById('modal').classList.remove('show');
+    }
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // ─── Section Navigation ───
+    function showSection(sectionId, btn) {
+      document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(b => b.classList.remove('active'));
+      document.getElementById('sec-' + sectionId).classList.add('active');
+      if (btn) btn.classList.add('active');
+
+      // Render the section
+      const parts = sectionId.split('-');
+      if (parts.length === 2) {
+        const [subject, type] = parts;
+        renderSection(subject, type);
+      } else if (sectionId === 'dashboard') {
+        renderDashboard();
+      } else if (sectionId === 'settings') {
+        renderSettings();
+      }
+    }
+
+    // ─── Dashboard ───
+    function renderDashboard() {
+      const stats = document.getElementById('dashboardStats');
+      const subjects = [
+        { key: 'csharp', name: 'C#', color: 'var(--csharp)', icon: '💜' },
+        { key: 'android', name: 'أندرويد', color: 'var(--android-dark)', icon: '🤖' },
+        { key: 'automata', name: 'أوتوماتا', color: 'var(--automata)', icon: '⚙️' }
+      ];
+
+      stats.innerHTML = subjects.map(s => {
+        const d = siteData[s.key];
+        return `
+          <div class="subject-card" style="border-top: 4px solid ${s.color};">
+            <div class="card-icon">${s.icon}</div>
+            <h3>${s.name}</h3>
+            <p style="font-size:0.9rem; color:var(--text-light);">
+              📚 ${d.lessons.length} دروس &nbsp;•&nbsp;
+              🎬 ${d.videos.length} فيديوهات &nbsp;•&nbsp;
+              💻 ${d.exercises.length} تمارين &nbsp;•&nbsp;
+              📝 ${d.exams.length} امتحانات
+            </p>
+          </div>
+        `;
+      }).join('') + `
+        <div class="subject-card" style="border-top: 4px solid var(--primary);">
+          <div class="card-icon">📊</div>
+          <h3>إجمالي المحتوى</h3>
+          <p style="font-size:0.9rem; color:var(--text-light);">
+            📚 ${subjects.reduce((a,s) => a + siteData[s.key].lessons.length, 0)} درس إجمالي &nbsp;•&nbsp;
+            🎬 ${subjects.reduce((a,s) => a + siteData[s.key].videos.length, 0)} فيديو &nbsp;•&nbsp;
+            💻 ${subjects.reduce((a,s) => a + siteData[s.key].exercises.length, 0)} تمرين &nbsp;•&nbsp;
+            📝 ${subjects.reduce((a,s) => a + siteData[s.key].exams.length, 0)} امتحان
+          </p>
+        </div>
+      `;
+    }
+
+    // ─── Generic Section Renderer ───
+    function renderSection(subject, type) {
+      const container = document.getElementById(`sec-${subject}-${type}`);
+      const subjectData = siteData[subject];
+      const subjectNames = { csharp: 'C#', android: 'أندرويد', automata: 'أوتوماتا' };
+      const typeNames = { lessons: 'الدروس', videos: 'الفيديوهات', exercises: 'التمارين', exams: 'الامتحانات' };
+
+      let html = `
+        <div class="admin-header">
+          <h1>${typeNames[type]} — ${subjectNames[subject]}</h1>
+          <button class="btn-add" onclick="openAddModal('${subject}', '${type}')">+ إضافة جديد</button>
+        </div>
+        <div class="admin-item-list">
+      `;
+
+      const items = subjectData[type];
+      if (items.length === 0) {
+        html += '<p style="text-align:center; color:var(--text-light); padding:3rem;">لا يوجد محتوى بعد. اضغط "إضافة جديد" للبدء.</p>';
+      } else {
+        items.forEach((item, idx) => {
+          let subtitle = '';
+          if (type === 'lessons') subtitle = item.description;
+          else if (type === 'videos') subtitle = item.duration + ' — ' + item.description;
+          else if (type === 'exercises') subtitle = (item.type === 'quiz' ? '🧠 اختبار' : '💻 تمرين كود') + ' — ' + (item.difficulty === 'easy' ? 'سهل' : item.difficulty === 'medium' ? 'متوسط' : 'صعب');
+          else if (type === 'exams') subtitle = item.year + ' — ' + item.semester;
+
+          html += `
+            <div class="admin-item">
+              <div class="item-info">
+                <h4>${item.title}</h4>
+                <p>${subtitle}</p>
+              </div>
+              <div class="item-actions">
+                <button class="btn-sm btn-edit" onclick="openEditModal('${subject}', '${type}', ${idx})">تعديل</button>
+                <button class="btn-sm btn-delete" onclick="deleteItem('${subject}', '${type}', ${idx})">حذف</button>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    // ─── Delete Item ───
+    function deleteItem(subject, type, idx) {
+      if (!confirm('هل أنت متأكد من الحذف؟')) return;
+      siteData[subject][type].splice(idx, 1);
+      saveSiteData(siteData);
+      renderSection(subject, type);
+      showToast('تم الحذف بنجاح ✓');
+    }
+
+    // ─── Add/Edit Modals ───
+    function openAddModal(subject, type) {
+      let html = '';
+      if (type === 'lessons') html = lessonForm(subject, -1);
+      else if (type === 'videos') html = videoForm(subject, -1);
+      else if (type === 'exercises') html = exerciseForm(subject, -1);
+      else if (type === 'exams') html = examForm(subject, -1);
+      openModal(html);
+    }
+
+    function openEditModal(subject, type, idx) {
+      let html = '';
+      if (type === 'lessons') html = lessonForm(subject, idx);
+      else if (type === 'videos') html = videoForm(subject, idx);
+      else if (type === 'exercises') html = exerciseForm(subject, idx);
+      else if (type === 'exams') html = examForm(subject, idx);
+      openModal(html);
+    }
+
+    // ─── Lesson Form ───
+    function lessonForm(subject, idx) {
+      const isEdit = idx >= 0;
+      const item = isEdit ? siteData[subject].lessons[idx] : { title: '', description: '', tags: [] };
+      return `
+        <h2>${isEdit ? 'تعديل الدرس' : 'إضافة درس جديد'}</h2>
+        <div class="form-group">
+          <label>عنوان الدرس</label>
+          <input type="text" id="f-title" value="${escHtml(item.title)}">
+        </div>
+        <div class="form-group">
+          <label>الوصف</label>
+          <textarea id="f-desc">${escHtml(item.description)}</textarea>
+        </div>
+        <div class="form-group">
+          <label>الوسوم (مفصولة بفاصلة)</label>
+          <input type="text" id="f-tags" value="${item.tags.join(', ')}">
+          <div class="hint">مثال: متغيرات, أنواع بيانات, حلقات</div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-save" onclick="saveLesson('${subject}', ${idx})">حفظ</button>
+          <button class="btn btn-cancel" onclick="closeModal()">إلغاء</button>
+        </div>
+      `;
+    }
+
+    function saveLesson(subject, idx) {
+      const item = {
+        id: idx >= 0 ? siteData[subject].lessons[idx].id : generateId(),
+        title: document.getElementById('f-title').value.trim(),
+        description: document.getElementById('f-desc').value.trim(),
+        tags: document.getElementById('f-tags').value.split(',').map(t => t.trim()).filter(t => t)
+      };
+      if (!item.title) { alert('الرجاء إدخال العنوان'); return; }
+      if (idx >= 0) siteData[subject].lessons[idx] = item;
+      else siteData[subject].lessons.push(item);
+      saveSiteData(siteData);
+      closeModal();
+      renderSection(subject, 'lessons');
+      showToast('تم الحفظ بنجاح ✓');
+    }
+
+    // ─── Video Form ───
+    function videoForm(subject, idx) {
+      const isEdit = idx >= 0;
+      const item = isEdit ? siteData[subject].videos[idx] : { title: '', description: '', youtubeId: '', duration: '' };
+      return `
+        <h2>${isEdit ? 'تعديل الفيديو' : 'إضافة فيديو جديد'}</h2>
+        <div class="form-group">
+          <label>عنوان الفيديو</label>
+          <input type="text" id="f-title" value="${escHtml(item.title)}">
+        </div>
+        <div class="form-group">
+          <label>الوصف</label>
+          <textarea id="f-desc">${escHtml(item.description)}</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>رابط يوتيوب أو معرّف الفيديو</label>
+            <input type="text" id="f-ytid" value="${escHtml(item.youtubeId)}" dir="ltr" placeholder="مثال: dQw4w9WgXcQ أو رابط كامل">
+            <div class="hint">يمكنك لصق الرابط الكامل أو معرّف الفيديو فقط</div>
+          </div>
+          <div class="form-group">
+            <label>المدة</label>
+            <input type="text" id="f-dur" value="${escHtml(item.duration)}" dir="ltr" placeholder="مثال: 45:00">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-save" onclick="saveVideo('${subject}', ${idx})">حفظ</button>
+          <button class="btn btn-cancel" onclick="closeModal()">إلغاء</button>
+        </div>
+      `;
+    }
+
+    function saveVideo(subject, idx) {
+      let ytId = document.getElementById('f-ytid').value.trim();
+      // Extract ID from full URL
+      if (ytId.includes('youtube.com/watch')) {
+        const url = new URL(ytId);
+        ytId = url.searchParams.get('v') || ytId;
+      } else if (ytId.includes('youtu.be/')) {
+        ytId = ytId.split('youtu.be/')[1].split('?')[0];
+      }
+      const item = {
+        id: idx >= 0 ? siteData[subject].videos[idx].id : generateId(),
+        title: document.getElementById('f-title').value.trim(),
+        description: document.getElementById('f-desc').value.trim(),
+        youtubeId: ytId,
+        duration: document.getElementById('f-dur').value.trim()
+      };
+      if (!item.title) { alert('الرجاء إدخال العنوان'); return; }
+      if (idx >= 0) siteData[subject].videos[idx] = item;
+      else siteData[subject].videos.push(item);
+      saveSiteData(siteData);
+      closeModal();
+      renderSection(subject, 'videos');
+      showToast('تم الحفظ بنجاح ✓');
+    }
+
+    // ─── Exercise Form ───
+    function exerciseForm(subject, idx) {
+      const isEdit = idx >= 0;
+      const item = isEdit ? siteData[subject].exercises[idx] : { type: 'code', title: '', difficulty: 'easy', description: '', starterCode: '', solutionCode: '', questions: [] };
+
+      let questionsHtml = '';
+      if (item.type === 'quiz' && item.questions) {
+        questionsHtml = item.questions.map((q, qi) => questionBlockHtml(qi, q)).join('');
+      }
+
+      return `
+        <h2>${isEdit ? 'تعديل التمرين' : 'إضافة تمرين جديد'}</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label>نوع التمرين</label>
+            <select id="f-type" onchange="toggleExerciseType()">
+              <option value="code" ${item.type==='code'?'selected':''}>تمرين كود</option>
+              <option value="quiz" ${item.type==='quiz'?'selected':''}>اختبار (أسئلة)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>مستوى الصعوبة</label>
+            <select id="f-diff">
+              <option value="easy" ${item.difficulty==='easy'?'selected':''}>سهل</option>
+              <option value="medium" ${item.difficulty==='medium'?'selected':''}>متوسط</option>
+              <option value="hard" ${item.difficulty==='hard'?'selected':''}>صعب</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>العنوان</label>
+          <input type="text" id="f-title" value="${escHtml(item.title)}">
+        </div>
+        <div class="form-group" id="f-desc-group">
+          <label>الوصف / التعليمات</label>
+          <textarea id="f-desc">${escHtml(item.description || '')}</textarea>
+        </div>
+        <div id="codeFields" style="display:${item.type==='code'?'block':'none'}">
+          <div class="form-group">
+            <label>الكود الابتدائي (Starter Code)</label>
+            <textarea id="f-starter" style="font-family:monospace; direction:ltr; text-align:left;">${escHtml(item.starterCode || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>الحل (Solution Code)</label>
+            <textarea id="f-solution" style="font-family:monospace; direction:ltr; text-align:left;">${escHtml(item.solutionCode || '')}</textarea>
+          </div>
+        </div>
+        <div id="quizFields" style="display:${item.type==='quiz'?'block':'none'}">
+          <div id="questionsContainer">${questionsHtml}</div>
+          <button class="btn btn-outline" style="margin-top:0.5rem" onclick="addQuestionBlock()">+ إضافة سؤال</button>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-save" onclick="saveExercise('${subject}', ${idx})">حفظ</button>
+          <button class="btn btn-cancel" onclick="closeModal()">إلغاء</button>
+        </div>
+      `;
+    }
+
+    function toggleExerciseType() {
+      const type = document.getElementById('f-type').value;
+      document.getElementById('codeFields').style.display = type === 'code' ? 'block' : 'none';
+      document.getElementById('quizFields').style.display = type === 'quiz' ? 'block' : 'none';
+    }
+
+    let questionCount = 0;
+    function questionBlockHtml(qi, q) {
+      q = q || { question: '', options: ['', '', '', ''], correct: 0 };
+      questionCount = Math.max(questionCount, qi + 1);
+      return `
+        <div class="question-block" id="qblock-${qi}">
+          <h4>سؤال ${qi + 1} <button class="btn-sm btn-delete" onclick="document.getElementById('qblock-${qi}').remove()" style="margin-right:0.5rem;">حذف</button></h4>
+          <div class="form-group">
+            <input type="text" class="q-text" data-qi="${qi}" value="${escHtml(q.question)}" placeholder="نص السؤال">
+          </div>
+          ${q.options.map((opt, oi) => `
+            <div class="option-row">
+              <input type="radio" name="correct-${qi}" value="${oi}" ${q.correct===oi?'checked':''}>
+              <input type="text" class="q-opt" data-qi="${qi}" data-oi="${oi}" value="${escHtml(opt)}" placeholder="الخيار ${oi+1}">
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function addQuestionBlock() {
+      const container = document.getElementById('questionsContainer');
+      const qi = questionCount++;
+      container.insertAdjacentHTML('beforeend', questionBlockHtml(qi, null));
+    }
+
+    function saveExercise(subject, idx) {
+      const type = document.getElementById('f-type').value;
+      const item = {
+        id: idx >= 0 ? siteData[subject].exercises[idx].id : generateId(),
+        type: type,
+        title: document.getElementById('f-title').value.trim(),
+        difficulty: document.getElementById('f-diff').value,
+        description: document.getElementById('f-desc').value.trim()
+      };
+      if (!item.title) { alert('الرجاء إدخال العنوان'); return; }
+
+      if (type === 'code') {
+        item.starterCode = document.getElementById('f-starter').value;
+        item.solutionCode = document.getElementById('f-solution').value;
+      } else {
+        item.questions = [];
+        document.querySelectorAll('.question-block').forEach(block => {
+          const qi = block.querySelector('.q-text').dataset.qi;
+          const qText = block.querySelector('.q-text').value.trim();
+          const opts = [];
+          block.querySelectorAll('.q-opt').forEach(o => opts.push(o.value.trim()));
+          const correctRadio = block.querySelector(`input[name="correct-${qi}"]:checked`);
+          const correct = correctRadio ? parseInt(correctRadio.value) : 0;
+          if (qText) item.questions.push({ question: qText, options: opts, correct: correct });
+        });
+      }
+
+      if (idx >= 0) siteData[subject].exercises[idx] = item;
+      else siteData[subject].exercises.push(item);
+      saveSiteData(siteData);
+      closeModal();
+      renderSection(subject, 'exercises');
+      showToast('تم الحفظ بنجاح ✓');
+    }
+
+    // ─── Exam Form ───
+    function examForm(subject, idx) {
+      const isEdit = idx >= 0;
+      const item = isEdit ? siteData[subject].exams[idx] : { title: '', year: '', semester: 'صيف', examLink: '#', solutionLink: '#' };
+      return `
+        <h2>${isEdit ? 'تعديل الامتحان' : 'إضافة امتحان جديد'}</h2>
+        <div class="form-group">
+          <label>عنوان الامتحان</label>
+          <input type="text" id="f-title" value="${escHtml(item.title)}">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>السنة</label>
+            <input type="text" id="f-year" value="${escHtml(item.year)}" placeholder="2024">
+          </div>
+          <div class="form-group">
+            <label>الفصل</label>
+            <select id="f-sem">
+              <option value="صيف" ${item.semester==='صيف'?'selected':''}>صيف</option>
+              <option value="شتاء" ${item.semester==='شتاء'?'selected':''}>شتاء</option>
+              <option value="ربيع" ${item.semester==='ربيع'?'selected':''}>ربيع</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>رابط الامتحان</label>
+          <input type="text" id="f-examlink" value="${escHtml(item.examLink)}" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label>رابط الحل</label>
+          <input type="text" id="f-sollink" value="${escHtml(item.solutionLink)}" dir="ltr">
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-save" onclick="saveExam('${subject}', ${idx})">حفظ</button>
+          <button class="btn btn-cancel" onclick="closeModal()">إلغاء</button>
+        </div>
+      `;
+    }
+
+    function saveExam(subject, idx) {
+      const item = {
+        id: idx >= 0 ? siteData[subject].exams[idx].id : generateId(),
+        title: document.getElementById('f-title').value.trim(),
+        year: document.getElementById('f-year').value.trim(),
+        semester: document.getElementById('f-sem').value,
+        examLink: document.getElementById('f-examlink').value.trim() || '#',
+        solutionLink: document.getElementById('f-sollink').value.trim() || '#'
+      };
+      if (!item.title) { alert('الرجاء إدخال العنوان'); return; }
+      if (idx >= 0) siteData[subject].exams[idx] = item;
+      else siteData[subject].exams.push(item);
+      saveSiteData(siteData);
+      closeModal();
+      renderSection(subject, 'exams');
+      showToast('تم الحفظ بنجاح ✓');
+    }
+
+    // ─── Settings ───
+    function renderSettings() {
+      document.getElementById('sec-settings').innerHTML = `
+        <div class="admin-header">
+          <h1>الإعدادات</h1>
+        </div>
+
+        <div class="settings-card">
+          <h3>🔑 تغيير كلمة المرور</h3>
+          <div class="form-group">
+            <label>كلمة المرور الجديدة</label>
+            <input type="password" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
+          </div>
+          <button class="btn btn-primary" onclick="changePassword()">تغيير كلمة المرور</button>
+        </div>
+
+        <div class="settings-card">
+          <h3>💾 النسخ الاحتياطي</h3>
+          <p style="color:var(--text-light); margin-bottom:1rem;">حفظ واستعادة جميع محتويات الموقع كملف JSON</p>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn-secondary" onclick="exportData(); showToast('تم تصدير البيانات ✓')">📥 تصدير البيانات</button>
+            <label class="btn-secondary" style="cursor:pointer; display:inline-flex; align-items:center;">
+              📤 استيراد البيانات
+              <input type="file" accept=".json" style="display:none" onchange="handleImport(this.files[0])">
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-card danger-zone">
+          <h3>⚠ منطقة الخطر</h3>
+          <p style="color:var(--text-light); margin-bottom:1rem;">إعادة تعيين جميع المحتويات إلى البيانات الافتراضية. هذا الإجراء لا يمكن التراجع عنه!</p>
+          <button class="btn-danger" onclick="resetData()">🗑 إعادة تعيين كل شيء</button>
+        </div>
+      `;
+    }
+
+    function changePassword() {
+      const newPw = document.getElementById('newPassword').value.trim();
+      if (!newPw || newPw.length < 4) { alert('كلمة المرور يجب أن تكون 4 أحرف على الأقل'); return; }
+      siteData.adminPassword = newPw;
+      saveSiteData(siteData);
+      showToast('تم تغيير كلمة المرور ✓');
+    }
+
+    function handleImport(file) {
+      if (!file) return;
+      importData(file).then(data => {
+        siteData = data;
+        renderDashboard();
+        showToast('تم استيراد البيانات بنجاح ✓');
+      }).catch(err => alert(err));
+    }
+
+    function resetData() {
+      if (!confirm('هل أنت متأكد؟ سيتم حذف جميع التعديلات واستعادة البيانات الافتراضية.')) return;
+      if (!confirm('تأكيد نهائي: هل تريد حقاً إعادة التعيين؟')) return;
+      siteData = resetToDefaults();
+      renderDashboard();
+      showToast('تم إعادة التعيين ✓');
+    }
+
+    // ─── Helpers ───
+    function escHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+</body>
+</html>

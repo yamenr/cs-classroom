@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الفصل الرقمي | علوم الحاسوب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <span class="icon">🎓</span>
+        <span>الفصل الرقمي</span>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="navbar-links">
+        <li><a href="index.html" class="active">الرئيسية</a></li>
+        <li><a href="csharp.html">C#</a></li>
+        <li><a href="android.html">تطوير أندرويد</a></li>
+        <li><a href="automata.html">نظرية الأوتوماتا</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>مرحباً بكم في الفصل الرقمي</h1>
+    <p>منصة تعليمية شاملة لعلوم الحاسوب — مواد، فيديوهات، تمارين تفاعلية، وامتحانات بجروت مع حلول</p>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num">3</span>
+        <span class="stat-label">مواضيع رئيسية</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">+50</span>
+        <span class="stat-label">درس ومحاضرة</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">+100</span>
+        <span class="stat-label">تمرين تفاعلي</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">+20</span>
+        <span class="stat-label">امتحان بجروت</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects -->
+  <div class="container">
+    <h2 class="text-center mb-3">المواضيع الدراسية</h2>
+
+    <div class="subjects-grid">
+
+      <!-- C# Card -->
+      <div class="subject-card csharp">
+        <div class="card-icon">💜</div>
+        <h3>C# — سي شارب</h3>
+        <p>تعلم أساسيات البرمجة بلغة C# من المتغيرات والشروط وصولاً إلى البرمجة كائنية التوجه والتعامل مع الملفات وقواعد البيانات.</p>
+        <div class="topics">
+          <span class="topic-tag">متغيرات وأنواع بيانات</span>
+          <span class="topic-tag">حلقات وشروط</span>
+          <span class="topic-tag">مصفوفات</span>
+          <span class="topic-tag">OOP</span>
+          <span class="topic-tag">LINQ</span>
+        </div>
+        <a href="csharp.html" class="btn btn-csharp">ادخل الموضوع ←</a>
+      </div>
+
+      <!-- Android Card -->
+      <div class="subject-card android">
+        <div class="card-icon">🤖</div>
+        <h3>تطوير تطبيقات أندرويد</h3>
+        <p>تعلم بناء تطبيقات أندرويد من الصفر باستخدام Android Studio — واجهات المستخدم، الأنشطة، قواعد البيانات، والاتصال بالشبكة.</p>
+        <div class="topics">
+          <span class="topic-tag">Android Studio</span>
+          <span class="topic-tag">Activities</span>
+          <span class="topic-tag">Layouts</span>
+          <span class="topic-tag">SQLite</span>
+          <span class="topic-tag">APIs</span>
+        </div>
+        <a href="android.html" class="btn btn-android">ادخل الموضوع ←</a>
+      </div>
+
+      <!-- Automata Card -->
+      <div class="subject-card automata">
+        <div class="card-icon">⚙️</div>
+        <h3>نظرية الأوتوماتا</h3>
+        <p>فهم أساسيات نظرية الحوسبة — الأوتوماتا المنتهية، التعابير النمطية، قواعد اللغات، وآلات تورنغ.</p>
+        <div class="topics">
+          <span class="topic-tag">DFA & NFA</span>
+          <span class="topic-tag">تعابير نمطية</span>
+          <span class="topic-tag">CFG</span>
+          <span class="topic-tag">PDA</span>
+          <span class="topic-tag">آلة تورنغ</span>
+        </div>
+        <a href="automata.html" class="btn btn-automata">ادخل الموضوع ←</a>
+      </div>
+
+    </div>
+
+    <!-- Quick Features Section -->
+    <div class="mt-4">
+      <h2 class="text-center mb-3">ماذا ستجد هنا؟</h2>
+      <div class="subjects-grid">
+        <div class="subject-card">
+          <div class="card-icon">📚</div>
+          <h3>مواد تعليمية</h3>
+          <p>شروحات مفصلة ومنظمة لكل موضوع مع أمثلة عملية وملاحظات مهمة لتسهيل الفهم والمراجعة.</p>
+        </div>
+        <div class="subject-card">
+          <div class="card-icon">🎬</div>
+          <h3>فيديوهات تعليمية</h3>
+          <p>مقاطع فيديو من يوتيوب مختارة بعناية تشرح كل مفهوم بطريقة بصرية وواضحة.</p>
+        </div>
+        <div class="subject-card">
+          <div class="card-icon">💻</div>
+          <h3>تمارين تفاعلية</h3>
+          <p>محرر أكواد مدمج لتجربة البرمجة مباشرة، بالإضافة إلى أسئلة اختيار متعدد مع تغذية راجعة فورية.</p>
+        </div>
+        <div class="subject-card">
+          <div class="card-icon">📝</div>
+          <h3>امتحانات بجروت</h3>
+          <p>مجموعة من امتحانات البجروت السابقة مع الحلول النموذجية للتدريب والتحضير الأمثل.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>الفصل الرقمي — علوم الحاسوب © 2026</p>
+    <p class="mt-1">تم إعداد هذا الموقع لأغراض تعليمية</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

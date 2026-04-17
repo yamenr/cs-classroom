@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطوير تطبيقات أندرويد | الفصل الرقمي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <span class="icon">🎓</span>
+        <span>الفصل الرقمي</span>
+      </a>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="navbar-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="csharp.html">C#</a></li>
+        <li><a href="android.html" class="active">تطوير أندرويد</a></li>
+        <li><a href="automata.html">نظرية الأوتوماتا</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero hero-android">
+    <h1>🤖 تطوير تطبيقات أندرويد</h1>
+    <p>تعلم بناء تطبيقات أندرويد من الصفر باستخدام Android Studio</p>
+  </section>
+
+  <!-- Content -->
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">الرئيسية</a> <span>‹</span> تطوير أندرويد
+    </div>
+
+    <!-- Tabs -->
+    <div class="section-tabs tabs-android">
+      <button class="active" onclick="switchTab('tab-lessons', this)">📚 المواد التعليمية</button>
+      <button onclick="switchTab('tab-videos', this)">🎬 الفيديوهات</button>
+      <button onclick="switchTab('tab-exercises', this)">💻 التمارين</button>
+      <button onclick="switchTab('tab-exams', this)">📝 امتحانات البجروت</button>
+    </div>
+
+    <!-- Tab: Lessons -->
+    <div class="tab-content active" id="tab-lessons">
+      <h2 class="mb-3">المواد التعليمية</h2>
+      <div id="lessons-content"></div>
+    </div>
+
+    <!-- Tab: Videos -->
+    <div class="tab-content" id="tab-videos">
+      <h2 class="mb-3">فيديوهات تعليمية</h2>
+      <div id="videos-content"></div>
+    </div>
+
+    <!-- Tab: Exercises -->
+    <div class="tab-content" id="tab-exercises">
+      <h2 class="mb-3">تمارين تفاعلية</h2>
+      <div id="exercises-content"></div>
+    </div>
+
+    <!-- Tab: Exams -->
+    <div class="tab-content" id="tab-exams">
+      <h2 class="mb-3">امتحانات البجروت والحلول</h2>
+      <div id="exams-content"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>الفصل الرقمي — علوم الحاسوب © 2026</p>
+    <p class="mt-1"><a href="admin.html">لوحة التحكم</a></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="subject-renderer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => renderSubjectPage('android'));
+  </script>
+</body>
+</html>
