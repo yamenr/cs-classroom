@@ -159,37 +159,146 @@ const DEFAULT_DATA = {
       }
     ],
     exams: [
+      // ── شالون 899381 (الشامل - حتى 2023) ──
       {
-        id: "csex1",
-        year: "2025",
-        semester: "صيف",
-        title: "امتحان بجروت C# - صيف 2025",
-        examLink: "#",
-        solutionLink: "#"
-      },
-      {
-        id: "csex2",
-        year: "2024",
-        semester: "صيف",
-        title: "امتحان بجروت C# - صيف 2024",
-        examLink: "#",
-        solutionLink: "#"
-      },
-      {
-        id: "csex3",
-        year: "2024",
-        semester: "شتاء",
-        title: "امتحان بجروت C# - شتاء 2024",
-        examLink: "#",
-        solutionLink: "#"
-      },
-      {
-        id: "csex4",
+        id: "csex-381-23s",
         year: "2023",
         semester: "صيف",
-        title: "امتحان بجروت C# - صيف 2023",
-        examLink: "#",
-        solutionLink: "#"
+        title: "899381 — بجروت صيف 2023",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2023/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2023/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-22s",
+        year: "2022",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2022",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2022/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2022/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-22w",
+        year: "2022",
+        semester: "شتاء",
+        title: "899381 — بجروت شتاء 2022",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2022/5/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2022/5/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-21s",
+        year: "2021",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2021",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2021/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2021/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-21w",
+        year: "2021",
+        semester: "شتاء",
+        title: "899381 — بجروت شتاء 2021",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2021/5/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2021/5/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-20s",
+        year: "2020",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2020",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2020/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2020/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-19s",
+        year: "2019",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2019",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2019/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2019/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-18s",
+        year: "2018",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2018",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2018/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2018/6/899381-ARA.pdf"
+      },
+      {
+        id: "csex-381-17s",
+        year: "2017",
+        semester: "صيف",
+        title: "899381 — بجروت صيف 2017",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2017/6/ARA/899381.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2017/6/899381-ARA.pdf"
+      },
+
+      // ── شالون 899371 (أساسيات - من 2024) ──
+      {
+        id: "csex-371-25s",
+        year: "2025",
+        semester: "صيف",
+        title: "899371 (أساسيات) — بجروت صيف 2025",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/6/ARA/899371.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/6/899371-ARA.pdf"
+      },
+      {
+        id: "csex-371-25w",
+        year: "2025",
+        semester: "شتاء",
+        title: "899371 (أساسيات) — بجروت شتاء 2025",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/5/ARA/899371.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/5/899371-ARA.pdf"
+      },
+      {
+        id: "csex-371-24s",
+        year: "2024",
+        semester: "صيف",
+        title: "899371 (أساسيات) — بجروت صيف 2024",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/6/ARA/899371.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/6/899371-ARA.pdf"
+      },
+      {
+        id: "csex-371-24w",
+        year: "2024",
+        semester: "شتاء",
+        title: "899371 (أساسيات) — بجروت شتاء 2024",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/5/ARA/899371.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/5/899371-ARA.pdf"
+      },
+
+      // ── شالون 899271 (بنى معطيات - من 2024) ──
+      {
+        id: "csex-271-25s",
+        year: "2025",
+        semester: "صيف",
+        title: "899271 (بنى معطيات) — بجروت صيف 2025",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/6/ARA/899271.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/6/899271-ARA.pdf"
+      },
+      {
+        id: "csex-271-25w",
+        year: "2025",
+        semester: "شتاء",
+        title: "899271 (بنى معطيات) — بجروت شتاء 2025",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/5/ARA/899271.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/5/899271-ARA.pdf"
+      },
+      {
+        id: "csex-271-24s",
+        year: "2024",
+        semester: "صيف",
+        title: "899271 (بنى معطيات) — بجروت صيف 2024",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/6/ARA/899271.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/6/899271-ARA.pdf"
+      },
+      {
+        id: "csex-271-24w",
+        year: "2024",
+        semester: "شتاء",
+        title: "899271 (بنى معطيات) — بجروت شتاء 2024",
+        examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/5/ARA/899271.pdf",
+        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/5/899271-ARA.pdf"
       }
     ]
   },
