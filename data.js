@@ -166,7 +166,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2023",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2023/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2023/6/899381-ARB.pdf"
+        solutionLink: "https://arikb30.wordpress.com/wp-content/uploads/2023/10/2023-381.pdf"
       },
       {
         id: "csex-381-22s",
@@ -174,7 +174,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2022",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2022/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2022/6/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
       },
       {
         id: "csex-381-22w",
@@ -182,7 +182,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899381 — بجروت شتاء 2022",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2022/5/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2022/5/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
       },
       {
         id: "csex-381-21s",
@@ -190,7 +190,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2021",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2021/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2021/6/899381-ARB.pdf"
+        solutionLink: "https://kadman11.files.wordpress.com/2023/12/pitaron_899381_2021b.pdf"
       },
       {
         id: "csex-381-21w",
@@ -198,7 +198,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899381 — بجروت شتاء 2021",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2021/5/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2021/5/899381-ARB.pdf"
+        solutionLink: "https://kadman11.files.wordpress.com/2023/12/pitaron_899381_2021b.pdf"
       },
       {
         id: "csex-381-20s",
@@ -206,7 +206,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2020",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2020/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2020/6/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
       },
       {
         id: "csex-381-19s",
@@ -214,7 +214,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2019",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2019/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2019/6/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
       },
       {
         id: "csex-381-18s",
@@ -222,7 +222,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2018",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2018/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2018/6/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
       },
       {
         id: "csex-381-17s",
@@ -230,7 +230,15 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899381 — بجروت صيف 2017",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2017/6/ARB/899381.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2017/6/899381-ARB.pdf"
+        solutionLink: "https://mabatl.co.il/bagruyot/899381%20c-sharp/solutions"
+      },
+      {
+        id: "csex-381-videos",
+        year: "فيديو",
+        semester: "جميع السنوات",
+        title: "899381 — حلول بالفيديو (يوتيوب)",
+        examLink: "https://www.youtube.com/playlist?list=PLNLf5_3sUeLyV_iDPDekuJ2OkMv9TvLph",
+        solutionLink: "https://www.youtube.com/playlist?list=PLNLf5_3sUeLyV_iDPDekuJ2OkMv9TvLph"
       },
 
       // ── شالون 899371 (أساسيات - من 2024) ──
@@ -240,7 +248,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899371 (أساسيات) — بجروت صيف 2025",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/6/ARB/899371.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/6/899371-ARB.pdf"
+        solutionLink: "https://sites.google.com/view/computer-science-nissan/%D7%A4%D7%AA%D7%A8%D7%95%D7%9F-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9C%D7%A4%D7%99-%D7%A9%D7%A0%D7%94"
       },
       {
         id: "csex-371-25w",
@@ -248,7 +256,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899371 (أساسيات) — بجروت شتاء 2025",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/5/ARB/899371.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/5/899371-ARB.pdf"
+        solutionLink: "https://sites.google.com/view/computer-science-nissan/%D7%A4%D7%AA%D7%A8%D7%95%D7%9F-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9C%D7%A4%D7%99-%D7%A9%D7%A0%D7%94"
       },
       {
         id: "csex-371-24s",
@@ -256,7 +264,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899371 (أساسيات) — بجروت صيف 2024",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/6/ARB/899371.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/6/899371-ARB.pdf"
+        solutionLink: "https://sites.google.com/view/computer-science-nissan/%D7%A4%D7%AA%D7%A8%D7%95%D7%9F-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9C%D7%A4%D7%99-%D7%A9%D7%A0%D7%94"
       },
       {
         id: "csex-371-24w",
@@ -264,7 +272,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899371 (أساسيات) — بجروت شتاء 2024",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/5/ARB/899371.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/5/899371-ARB.pdf"
+        solutionLink: "https://sites.google.com/view/computer-science-nissan/%D7%A4%D7%AA%D7%A8%D7%95%D7%9F-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9C%D7%A4%D7%99-%D7%A9%D7%A0%D7%94"
       },
 
       // ── شالون 899271 (بنى معطيات - من 2024) ──
@@ -274,7 +282,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899271 (بنى معطيات) — بجروت صيف 2025",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/6/ARB/899271.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/6/899271-ARB.pdf"
+        solutionLink: "https://kadman11.wordpress.com/%D7%9E%D7%93%D7%A2%D7%99-%D7%94%D7%9E%D7%97%D7%A9%D7%91-%D7%A9%D7%90%D7%9C%D7%95%D7%9F-899371-2/"
       },
       {
         id: "csex-271-25w",
@@ -282,7 +290,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899271 (بنى معطيات) — بجروت شتاء 2025",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2025/5/ARB/899271.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2025/5/899271-ARB.pdf"
+        solutionLink: "https://sites.google.com/view/computer-science-nissan/%D7%A4%D7%AA%D7%A8%D7%95%D7%9F-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9C%D7%A4%D7%99-%D7%A9%D7%A0%D7%94"
       },
       {
         id: "csex-271-24s",
@@ -290,7 +298,7 @@ const DEFAULT_DATA = {
         semester: "صيف",
         title: "899271 (بنى معطيات) — بجروت صيف 2024",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/6/ARB/899271.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/6/899271-ARB.pdf"
+        solutionLink: "https://www.youtube.com/playlist?list=PLNLf5_3sUeLyV_iDPDekuJ2OkMv9TvLph"
       },
       {
         id: "csex-271-24w",
@@ -298,7 +306,7 @@ const DEFAULT_DATA = {
         semester: "شتاء",
         title: "899271 (بنى معطيات) — بجروت شتاء 2024",
         examLink: "https://meyda.education.gov.il/sheeloney_bagrut/2024/5/ARB/899271.pdf",
-        solutionLink: "https://meyda.education.gov.il/sheeloney_bagrut/pitronot_bagrut/2024/5/899271-ARB.pdf"
+        solutionLink: "https://arikb30.wordpress.com/%D7%A4%D7%AA%D7%A8%D7%95%D7%A0%D7%95%D7%AA-%D7%91%D7%92%D7%A8%D7%95%D7%AA-%D7%9E%D7%93%D7%A2%D7%99-%D7%94%D7%9E%D7%97%D7%A9%D7%91/"
       }
     ]
   },
